@@ -58,7 +58,7 @@ data:
             fixedIP: 100.65.{{ rack_number }}.{{ peer_suffix + 1 }}
           - name: BgpMainNet
             subnetName: subnet{{ rack_number }}
-            fixedIP: 172.30.{{ rack_number }}.{{ peer_suffix + 1 }}
+            fixedIP: 99.99.{{ rack_number }}.{{ peer_suffix + 1 }}
           - name: BgpMainNetV6
             subnetName: subnet{{ rack_number }}
             fixedIP: f00d:f00d:f00d:f00d:f00d:f00d:f00d:00{{ (rack_number | int) + 1 }}{{ 2 if instance.startswith('compute') else 3 }}
