@@ -16,9 +16,22 @@
   vars:
     vm: "{{ _vm.key }}"
     vm_type: "{{ _vm.value }}"
+    _run_id: >-
+      {{
+        '-' + (cifmw_run_id | lower)
+          if (
+            cifmw_architecture_scenario is defined and
+            cifmw_architecture_scenario | length > 0 and
+            cifmw_run_id | default('') | length > 0
+            ) else ''
+      }}
+    _vm_key: >-
+      {% set _suffix = _run_id + '-' + (vm | ansible.builtin.split('-') | last) -%}
+      {% set _use_len = (vm | length) - (_suffix | length)                      -%}
+      {{ vm[:_use_len] }}
     vm_data: >-
       {{
-        _cifmw_libvirt_manager_layout.vms[vm_type]
+        _cifmw_libvirt_manager_layout.vms[vm_type] | default(_cifmw_libvirt_manager_layout.vms[_vm_key])
       }}
   community.libvirt.virt:
     state: running
@@ -37,9 +50,22 @@
   vars:
     vm: "{{ _vm.key }}"
     vm_type: "{{ _vm.value }}"
+    _run_id: >-
+      {{
+        '-' + (cifmw_run_id | lower)
+          if (
+            cifmw_architecture_scenario is defined and
+            cifmw_architecture_scenario | length > 0 and
+            cifmw_run_id | default('') | length > 0
+            ) else ''
+      }}
+    _vm_key: >-
+      {% set _suffix = _run_id + '-' + (vm | ansible.builtin.split('-') | last) -%}
+      {% set _use_len = (vm | length) - (_suffix | length)                      -%}
+      {{ vm[:_use_len] }}
     vm_data: >-
       {{
-        _cifmw_libvirt_manager_layout.vms[vm_type]
+        _cifmw_libvirt_manager_layout.vms[vm_type] | default(_cifmw_libvirt_manager_layout.vms[_vm_key])
       }}
     _ocp_name: >-
       {{

@@ -65,7 +65,8 @@
           {%   set _vms = [_name | replace('_', '-')] |
                           product(_range) |
                           map('join', '-')                          -%}
-          {%   set _map = dict(_vms | zip([_type] * _amount))       -%}
+          {%   set _group = _type if _cifmw_libvirt_manager_layout.vms[_type].ansible_group is not defined else _cifmw_libvirt_manager_layout.vms[_type].ansible_group -%}
+          {%   set _map = dict(_vms | zip([_group] * _amount))      -%}
           {%   set _ = _vm_list.update(_map)                        -%}
           {% endfor                                                 -%}
           {{ _vm_list }}
