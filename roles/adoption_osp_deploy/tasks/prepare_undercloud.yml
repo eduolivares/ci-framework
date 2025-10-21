@@ -126,6 +126,9 @@
         _gateway_ip: "{{ _ctlplane_net[gw_version|default('gw_v4')] }}"
         _interface_mtu: "{{ _undercloud_net.networks.ctlplaner0.mtu }}"
         _ctlplane_cidr: "{{ _undercloud_net.networks.ctlplaner0[prefix_length_version|default('prefix_length_v4')] }}"
+        _registry_ips: "{{ lookup('community.general.dig', 'registry.redhat.io', wantlist=true) | list }}"
+        _cdn_ips: "{{ lookup('community.general.dig', 'cdn.redhat.com', wantlist=true) | list }}"
+        _access_ips: "{{ lookup('community.general.dig', 'access.redhat.com', wantlist=true) | list }}"
       ansible.builtin.template:
         src: "os_net_config_undercloud_bgp.yml.j2"
         dest: /etc/os-net-config/tripleo_config.yaml

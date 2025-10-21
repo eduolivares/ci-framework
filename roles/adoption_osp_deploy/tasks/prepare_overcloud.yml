@@ -251,6 +251,9 @@
         _node_net: "{{ cifmw_networking_env_definition.instances[overcloud_vm] }}"
         _dns_server: "{{ _ctlplane_net.[dns_version|default('dns_v4')] }}"
         _interface_mtu: 1500
+        _registry_ips: "{{ lookup('community.general.dig', 'registry.redhat.io', wantlist=true) | list }}"
+        _cdn_ips: "{{ lookup('community.general.dig', 'cdn.redhat.com', wantlist=true) | list }}"
+        _access_ips: "{{ lookup('community.general.dig', 'access.redhat.com', wantlist=true) | list }}"
         vms:
           osp-r0-compute-0:
             ctlplane: '192.168.122.100'

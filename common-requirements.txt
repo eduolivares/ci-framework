@@ -5,3 +5,4 @@ kubernetes-validate==1.31.0
 openstacksdk==4.1.0
 jsonschema==4.23.0
 pyOpenSSL==24.2.1
+dnspython==2.7.0  # required by community.general.dig

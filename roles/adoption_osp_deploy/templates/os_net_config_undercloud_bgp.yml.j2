@@ -21,8 +21,10 @@ network_config:
     next_hop: 192.168.111.1
   - ip_netmask: 23.0.0.0/8
     next_hop: 192.168.111.1
-  - ip_netmask: 44.0.0.0/8
+{% for _ip in (_registry_ips + _cdn_ips + _access_ips) %}
+  - ip_netmask: {{ _ip }}/32
     next_hop: 192.168.111.1
+{% endfor %}
 - type: ovs_bridge
   name: br-ctlplane
   mtu: {{ _interface_mtu }}
